@@ -32,7 +32,7 @@ if os.path.exists('job_parameters.json'):
 
 # Setting up training parameters
 tf.set_random_seed(config['random_seed'])
-
+print("made1")
 # Training parameters
 max_num_training_steps = config['max_num_training_steps']
 num_output_steps = config['num_output_steps']
@@ -52,7 +52,7 @@ eval_batch_size = config['eval_batch_size']
 
 # Output directory
 model_dir = config['model_dir']
-
+print("made2")
 # Setting up the training data
 mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 mnist_train = DataSubset(mnist.train.images,
@@ -74,7 +74,7 @@ train_step = tf.train.AdamOptimizer(1e-4).minimize(model.xent + \
                                                     w_l1 * model.l1_loss + \
                                                     w_rsloss * model.rsloss,
                                                     global_step=global_step)
-
+print("made3")
 # Set up adversary
 attack = LinfPGDAttack(model, 
                        config['epsilon'],
@@ -91,7 +91,7 @@ eval_attack = LinfPGDAttack(model,
                        config['eval_epsilon']/10.0,
                        config['random_start'],
                        config['loss_func'])
-
+print("made4")
 # Setting up the Tensorboard and checkpoint outputs
 if not os.path.exists(model_dir):
     os.makedirs(model_dir)
@@ -121,7 +121,7 @@ tf.summary.scalar('avg_un1l', model.un1loss, collections = ['unstable'])
 tf.summary.scalar('avg_un2l', model.un2loss, collections = ['unstable'])
 tf.summary.scalar('avg_un3l', model.un3loss, collections = ['unstable'])
 unstable_summaries = tf.summary.merge_all('unstable')
-
+print("made5")
 shutil.copy('config.json', model_dir)
 
 config = tf.ConfigProto()
@@ -134,7 +134,7 @@ with tf.Session(config=config) as sess:
         summary_writer_eval = tf.summary.FileWriter(eval_dir)
     sess.run(tf.global_variables_initializer())
     training_time = 0.0
-
+    print("abouttostart")
     # Main training loop
     for ii in range(max_num_training_steps + 1):
         x_batch, y_batch = mnist_train.get_next_batch(batch_size,

@@ -84,3 +84,60 @@ Solution count 0
 
 Model is infeasible or unbounded
 Best objective -, best bound -, gap -
+example
+Fraction correct: 0.9735
+Verifying 1 through 2
+Academic license - for non-commercial use only
+Academic license - for non-commercial use only
+example
+Fraction correct: 0.9735
+Verifying 1 through 4
+Academic license - for non-commercial use only
+Academic license - for non-commercial use only
+[info | MIPVerify]: Working on index 4
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 1, target labels are [2, 3, 4, 5, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying ReLU() ...
+[info | MIPVerify]:   Behavior of ReLUs - split: 499, zero_output: 201, linear_in_input: 1989, constant_output: 447
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying ReLU() ...
+[info | MIPVerify]:   Behavior of ReLUs - split: 216, zero_output: 234, linear_in_input: 1118, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying ReLU() ...
+[info | MIPVerify]:   Behavior of ReLUs - split: 24, zero_output: 13, linear_in_input: 63, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 8
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 6110 rows, 3840 columns and 196434 nonzeros
+Model fingerprint: 0xf25807aa
+Variable types: 3093 continuous, 747 integer (747 binary)
+Coefficient statistics:
+  Matrix range     [1e-07, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [8e-04, 3e+00]
+  RHS range        [4e-04, 9e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R786 by 0.047398938
+
+Presolve removed 2711 rows and 1379 columns
+Presolve time: 0.32s
+Presolved: 3399 rows, 2461 columns, 191732 nonzeros
+Variable types: 1715 continuous, 746 integer (746 binary)
+
+Root relaxation: infeasible, 373 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 infeasible    0               - infeasible      -     -    0s
+
+Explored 0 nodes (373 simplex iterations) in 0.44 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -

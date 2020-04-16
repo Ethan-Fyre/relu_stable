@@ -14,9 +14,9 @@ class Model(object):
         filters = config["filters"]
         filter_size = config["filter_size"]
 
-        self.x_input = tf.placeholder(tf.float32, shape = [None, 784])
-        self.y_input = tf.placeholder(tf.int64, shape = [None])
-        self.x_input_natural = tf.placeholder(tf.float32, shape = [None, 784])
+        self.x_input = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
+        self.y_input = tf.compat.v1.placeholder(tf.int64, shape = [None])
+        self.x_input_natural = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
         self.x_input_natural_reshaped = tf.reshape(self.x_input_natural, [-1, 28, 28, 1])
         self.x_image = tf.reshape(self.x_input, [-1, 28, 28, 1])
 
@@ -105,7 +105,7 @@ class Model(object):
 
     @staticmethod
     def _weight_variable(shape, sparsity=-1.0):
-        initial = tf.truncated_normal(shape, stddev=0.1)
+        initial = tf.random.truncated_normal(shape, stddev=0.1)
         if sparsity > 0:
             mask = tf.cast(tf.random_uniform(shape) < sparsity, tf.float32)
             initial *= mask

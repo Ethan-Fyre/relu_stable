@@ -51,12 +51,18 @@ relu_prune = args.relu_prune
 do_eval = args.do_eval
 relu_prune_frac = float(args.relu_prune_frac)
 weight_thresh = float(args.weight_thresh)
-
 if not os.path.isdir(model_dir):
   raise ValueError('The model directory was not found')
 
 # Set up the data, hyperparameters, and the model
-mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
+#mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
+mnist = tf.keras.datasets.mnist
+
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+
+train_images = train_images.reshape(-1, 28 * 28) / 255.0
+test_images = test_images.reshape(-1, 28 * 28) / 255.0
 
 with open('config.json') as config_file:
     config = json.load(config_file)
@@ -73,8 +79,8 @@ attack = LinfPGDAttack(model,
                        config['random_start'],
                        config['loss_func'])
 
-global_step = tf.contrib.framework.get_or_create_global_step()
-saver = tf.train.Saver()
+global_step = tf.compat.v1.train.get_or_create_global_step()
+saver = tf.compat.v1.train.Saver()
 
 def convert_conv_2x2_to_fc(input_dims, conv_filter, conv_bias, conv_mask=None):
     # Example:
@@ -143,27 +149,27 @@ def prune_small_weights(tf_vars, sess, tolerance):
 
 # A function for evaluating a single checkpoint
 def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prune_frac):
-  with tf.Session() as sess:
+  with tf.compat.v1.Session() as sess:
     # Restore the checkpoint
     saver.restore(sess, filename)
     print('restored checkpoint for {}'.format(filename))
     print('First eval - no changes')
 
-    x_single_train = mnist.train.images[0:1, :]
-    y_single_train = mnist.train.labels[0:1]
+    x_single_train = train_images[0:1, :]
+    y_single_train = train_labels[0:1]
     dict_nat_single = { model.x_input: x_single_train,
                         model.x_input_natural: x_single_train,
                         model.y_input: y_single_train}
 
     # Get the variables
-    c1_v = [x for x in tf.global_variables() if x.op.name=='Variable'][0]
-    c1_b = [x for x in tf.global_variables() if x.op.name=='Variable_1'][0]
-    c2_v = [x for x in tf.global_variables() if x.op.name=='Variable_2'][0]
-    c2_b = [x for x in tf.global_variables() if x.op.name=='Variable_3'][0]
-    fc_v = [x for x in tf.global_variables() if x.op.name=='Variable_4'][0]
-    fc_b = [x for x in tf.global_variables() if x.op.name=='Variable_5'][0]
-    sm_v = [x for x in tf.global_variables() if x.op.name=='Variable_6'][0]
-    sm_b = [x for x in tf.global_variables() if x.op.name=='Variable_7'][0]
+    c1_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable'][0]
+    c1_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_1'][0]
+    c2_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_2'][0]
+    c2_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_3'][0]
+    fc_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_4'][0]
+    fc_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_5'][0]
+    sm_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_6'][0]
+    sm_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_7'][0]
 
     # Save values in the final variables
     c1, c1b, c2, c2b, fc, fcb, sm, smb = sess.run([c1_v, c1_b,
@@ -182,8 +188,8 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
         bstart = ibatch * eval_batch_size
         bend = min(bstart + eval_batch_size, num_eval_examples)
 
-        x_batch = mnist.test.images[bstart:bend, :]
-        y_batch = mnist.test.labels[bstart:bend]
+        x_batch = test_images[bstart:bend, :]
+        y_batch = test_labels[bstart:bend]
 
         dict_nat = {model.x_input: x_batch,
                     model.x_input_natural: x_batch,
@@ -244,8 +250,8 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
           bstart = ibatch * eval_batch_size
           bend = min(bstart + eval_batch_size, num_eval_examples)
 
-          x_batch = mnist.test.images[bstart:bend, :]
-          y_batch = mnist.test.labels[bstart:bend]
+          x_batch = test_images[bstart:bend, :]
+          y_batch = test_labels[bstart:bend]
 
           dict_nat = {model.x_input: x_batch,
                       model.x_input_natural: x_batch,
@@ -303,8 +309,8 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
         bstart = ibatch * eval_batch_size
         bend = min(bstart + eval_batch_size, num_training_examples)
 
-        x_batch = mnist.train.images[bstart:bend, :]
-        y_batch = mnist.train.labels[bstart:bend]
+        x_batch = train_images[bstart:bend, :]
+        y_batch = train_labels[bstart:bend]
         x_batch_adv = attack.perturb(x_batch, y_batch, sess)
 
         dict_adv = {model.x_input: x_batch_adv,
@@ -375,8 +381,8 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
           bstart = ibatch * eval_batch_size
           bend = min(bstart + eval_batch_size, num_eval_examples)
 
-          x_batch = mnist.test.images[bstart:bend, :]
-          y_batch = mnist.test.labels[bstart:bend]
+          x_batch = test_images[bstart:bend, :]
+          y_batch = test_labels[bstart:bend]
 
           dict_nat = {mask_model.x_input: x_batch,
                       mask_model.x_input_natural: x_batch,
