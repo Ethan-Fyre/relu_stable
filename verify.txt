@@ -1,0 +1,1 @@
+julia --color=yes ./verification/verify_MNIST.jl <name> <eps> <st_idx> <end_idx> | wtee -a ./verification/logs/<name>.log

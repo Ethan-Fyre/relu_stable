@@ -27,19 +27,19 @@ c3_size = 100
 
 fc1 = get_matrix_params(param_dict, "fc1", (784, c1_size))
 if haskey(param_dict, "fc1/mask")
-    m1 = MaskedReLU(squeeze(param_dict["fc1/mask"], 1), interval_arithmetic)
+    m1 = MaskedReLU(dropdims(param_dict["fc1/mask"], dims=1), interval_arithmetic)
 else
     m1 = ReLU(interval_arithmetic)
 end
 fc2 = get_matrix_params(param_dict, "fc2", (c1_size, c2_size))
 if haskey(param_dict, "fc2/mask")
-    m2 = MaskedReLU(squeeze(param_dict["fc2/mask"], 1))
+    m2 = MaskedReLU(dropdims(param_dict["fc2/mask"], dims=1))
 else
     m2 = ReLU()
 end
 fc3 = get_matrix_params(param_dict, "fc3", (c2_size, c3_size))
 if haskey(param_dict, "fc3/mask")
-    m3 = MaskedReLU(squeeze(param_dict["fc3/mask"], 1))
+    m3 = MaskedReLU(dropdims(param_dict["fc3/mask"], dims=1))
 else
     m3 = ReLU()
 end

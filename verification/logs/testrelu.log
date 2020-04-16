@@ -1,0 +1,604 @@
+testrelu
+testrelu
+testrelu
+testrelu
+Fraction correct: 0.9711
+Verifying 1 through 10
+Academic license - for non-commercial use only
+Academic license - for non-commercial use only
+[info | MIPVerify]: Working on index 1
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 8, target labels are [1, 2, 3, 4, 5, 6, 7, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 320, zero_output: 85, linear_in_input: 266, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 176, zero_output: 135, linear_in_input: 347, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 21, zero_output: 3, linear_in_input: 18, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 5
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5216 rows, 3393 columns and 149704 nonzeros
+Model fingerprint: 0x917f4d10
+Variable types: 2871 continuous, 522 integer (522 binary)
+Coefficient statistics:
+  Matrix range     [2e-07, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [8e-04, 4e+00]
+  RHS range        [3e-05, 1e+01]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R788 by 0.010029423
+
+Presolve removed 517 rows and 0 columns
+Presolve time: 0.01s
+
+Explored 0 nodes (0 simplex iterations) in 0.05 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 2
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 3, target labels are [1, 2, 4, 5, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 289, zero_output: 107, linear_in_input: 275, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 153, zero_output: 176, linear_in_input: 329, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 19, zero_output: 9, linear_in_input: 14, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 5
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 4992 rows, 3281 columns and 131000 nonzeros
+Model fingerprint: 0x587541f2
+Variable types: 2815 continuous, 466 integer (466 binary)
+Coefficient statistics:
+  Matrix range     [2e-07, 6e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [4e-04, 4e+00]
+  RHS range        [3e-05, 6e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R784 by 0.033197514
+
+Presolve removed 2655 rows and 1572 columns
+Presolve time: 0.23s
+Presolved: 2337 rows, 1709 columns, 121161 nonzeros
+Variable types: 1247 continuous, 462 integer (462 binary)
+
+Root relaxation: infeasible, 417 iterations, 0.03 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 infeasible    0               - infeasible      -     -    0s
+
+Explored 0 nodes (417 simplex iterations) in 0.38 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 3
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 2, target labels are [1, 3, 4, 5, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 391, zero_output: 48, linear_in_input: 232, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 146, zero_output: 78, linear_in_input: 434, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 18, zero_output: 5, linear_in_input: 19, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 8
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5374 rows, 3472 columns and 146854 nonzeros
+Model fingerprint: 0xd5bfe3f7
+Variable types: 2909 continuous, 563 integer (563 binary)
+Coefficient statistics:
+  Matrix range     [5e-08, 7e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [4e-04, 2e+00]
+  RHS range        [3e-05, 7e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R784 by 0.029132046
+
+Presolve removed 2844 rows and 1568 columns
+Presolve time: 0.28s
+Presolved: 2530 rows, 1904 columns, 141710 nonzeros
+Variable types: 1341 continuous, 563 integer (563 binary)
+
+Root relaxation: infeasible, 357 iterations, 0.02 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 infeasible    0               - infeasible      -     -    0s
+
+Explored 0 nodes (357 simplex iterations) in 0.37 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 4
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 1, target labels are [2, 3, 4, 5, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 250, zero_output: 141, linear_in_input: 280, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 165, zero_output: 230, linear_in_input: 263, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 16, zero_output: 6, linear_in_input: 20, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 8
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 4878 rows, 3224 columns and 129632 nonzeros
+Model fingerprint: 0x72809232
+Variable types: 2785 continuous, 439 integer (439 binary)
+Coefficient statistics:
+  Matrix range     [4e-08, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e-03, 3e+00]
+  RHS range        [3e-04, 9e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R788 by 0.010694959
+
+Presolve removed 2606 rows and 1576 columns
+Presolve time: 0.14s
+
+Explored 0 nodes (0 simplex iterations) in 0.17 seconds
+Thread count was 1 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 5
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 5, target labels are [1, 2, 3, 4, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 322, zero_output: 90, linear_in_input: 259, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 213, zero_output: 125, linear_in_input: 320, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 19, zero_output: 6, linear_in_input: 17, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 5
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5364 rows, 3467 columns and 157573 nonzeros
+Model fingerprint: 0x702e0ad7
+Variable types: 2908 continuous, 559 integer (559 binary)
+Coefficient statistics:
+  Matrix range     [1e-07, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [4e-04, 5e+00]
+  RHS range        [3e-05, 9e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R786 by 0.015843056
+
+Presolve removed 2788 rows and 1569 columns
+Presolve time: 0.26s
+Presolved: 2576 rows, 1898 columns, 151200 nonzeros
+Variable types: 1340 continuous, 558 integer (558 binary)
+
+Root relaxation: objective 2.433554e-02, 2027 iterations, 0.22 seconds
+Another try with MIP start
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.02434    0  323          -    0.02434      -     -    0s
+     0     0    0.03890    0  448          -    0.03890      -     -    1s
+     0     0    0.04437    0  439          -    0.04437      -     -    1s
+     0     0    0.04681    0  432          -    0.04681      -     -    2s
+     0     0    0.04730    0  426          -    0.04730      -     -    2s
+     0     0    0.04810    0  430          -    0.04810      -     -    3s
+     0     0    0.04833    0  433          -    0.04833      -     -    3s
+     0     0    0.04865    0  432          -    0.04865      -     -    3s
+     0     0    0.04871    0  431          -    0.04871      -     -    3s
+     0     0    0.04889    0  430          -    0.04889      -     -    4s
+     0     0    0.06620    0  429          -    0.06620      -     -    4s
+     0     0    0.06960    0  418          -    0.06960      -     -    5s
+     0     0 1.000e+100    0  417          - infeasible      -     -    5s
+
+Cutting planes:
+  Gomory: 26
+  Cover: 4
+  Implied bound: 29
+  MIR: 252
+  Flow cover: 12
+  RLT: 83
+  Relax-and-lift: 14
+
+Explored 1 nodes (6982 simplex iterations) in 5.99 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 6
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 2, target labels are [1, 3, 4, 5, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 368, zero_output: 63, linear_in_input: 240, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 143, zero_output: 95, linear_in_input: 420, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 18, zero_output: 4, linear_in_input: 20, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 7
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5268 rows, 3419 columns and 138136 nonzeros
+Model fingerprint: 0x8d179041
+Variable types: 2883 continuous, 536 integer (536 binary)
+Coefficient statistics:
+  Matrix range     [1e-08, 7e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [5e-04, 3e+00]
+  RHS range        [3e-05, 7e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R784 by 0.029132046
+
+Presolve removed 2809 rows and 1575 columns
+Presolve time: 0.24s
+Presolved: 2459 rows, 1844 columns, 121220 nonzeros
+Variable types: 1315 continuous, 529 integer (529 binary)
+
+Root relaxation: infeasible, 143 iterations, 0.01 seconds
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0 infeasible    0               - infeasible      -     -    0s
+
+Explored 0 nodes (143 simplex iterations) in 0.34 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 7
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 5, target labels are [1, 2, 3, 4, 6, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 309, zero_output: 89, linear_in_input: 273, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 203, zero_output: 132, linear_in_input: 323, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 17, zero_output: 6, linear_in_input: 19, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 7
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5268 rows, 3419 columns and 152284 nonzeros
+Model fingerprint: 0x6c667f19
+Variable types: 2883 continuous, 536 integer (536 binary)
+Coefficient statistics:
+  Matrix range     [4e-08, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [7e-04, 4e+00]
+  RHS range        [3e-05, 9e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R784 by 0.029790696
+
+Presolve removed 2748 rows and 1569 columns
+Presolve time: 0.27s
+Presolved: 2520 rows, 1850 columns, 145990 nonzeros
+Variable types: 1315 continuous, 535 integer (535 binary)
+
+Root relaxation: objective 5.924483e-02, 1787 iterations, 0.28 seconds
+Another try with MIP start
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.05924    0  335          -    0.05924      -     -    1s
+     0     0    0.06745    0  449          -    0.06745      -     -    1s
+     0     0    0.07311    0  431          -    0.07311      -     -    1s
+     0     0    0.07688    0  425          -    0.07688      -     -    2s
+     0     0    0.07998    0  419          -    0.07998      -     -    3s
+     0     0    0.09228    0  415          -    0.09228      -     -    5s
+     0     0    0.09239    0  419          -    0.09239      -     -    6s
+
+Cutting planes:
+  Gomory: 1
+  Cover: 8
+  Implied bound: 41
+  Clique: 1
+  MIR: 361
+  Flow cover: 117
+  RLT: 46
+  Relax-and-lift: 11
+
+Explored 1 nodes (6963 simplex iterations) in 8.61 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+[info | MIPVerify]: Working on index 8
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 10, target labels are [1, 2, 3, 4, 5, 6, 7, 8, 9]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 318, zero_output: 84, linear_in_input: 269, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 169, zero_output: 115, linear_in_input: 374, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 22, zero_output: 3, linear_in_input: 17, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 8
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5190 rows, 3380 columns and 157222 nonzeros
+Model fingerprint: 0xa180ec51
+Variable types: 2863 continuous, 517 integer (517 binary)
+Coefficient statistics:
+  Matrix range     [2e-07, 9e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [2e-04, 4e+00]
+  RHS range        [3e-05, 8e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R792 by 0.040613288
+
+Presolve removed 2607 rows and 1441 columns
+Presolve time: 0.21s
+Presolved: 2583 rows, 1939 columns, 152503 nonzeros
+Variable types: 1422 continuous, 517 integer (517 binary)
+
+Root relaxation: objective 0.000000e+00, 842 iterations, 0.05 seconds
+Another try with MIP start
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0    5          -    0.00000      -     -    0s
+     0     0    0.00000    0    6          -    0.00000      -     -    0s
+     0     0    0.00000    0    8          -    0.00000      -     -    0s
+     0     0    0.00000    0   11          -    0.00000      -     -    1s
+     0     0    0.00000    0   11          -    0.00000      -     -    1s
+     0     0    0.00000    0   11          -    0.00000      -     -    1s
+     0     0    0.00000    0   11          -    0.00000      -     -    1s
+     0     2    0.00000    0   11          -    0.00000      -     -    4s
+     3     8    0.00000    2   11          -    0.00000      -   250    5s
+   183   156 infeasible   18               -    0.00000      -   304   10s
+   618   523    0.09613   75  137          -    0.00000      -   232   15s
+  1020   846    0.04338   16   70          -    0.00000      -   201   20s
+  1273   979    0.09994  109    5          -    0.00000      -   203   25s
+  1286   988    0.09801   70   12          -    0.00000      -   201   31s
+  1289   992    0.00000   15   18          -    0.00000      -   5.3   37s
+  1298   994    0.06353   17  309          -    0.00000      -  10.1   44s
+  1310   996    0.09613   18  254          -    0.04839      -  15.4   45s
+  1533  1061    0.09216   37  268          -    0.06277      -  41.4   50s
+  1805  1168    0.08048   29  284          -    0.06398      -  55.1   55s
+  2204  1311    0.09965   33  254          -    0.06958      -  68.0   60s
+  2625  1381 infeasible   40               -    0.07139      -  74.8   65s
+  2881  1503 infeasible   36               -    0.07279      -  78.1   70s
+  3381  1611    0.09910   29  275          -    0.07464      -  84.0   75s
+  3730  1689    0.09779   29  185          -    0.07726      -  90.7   80s
+  4176  1756    0.09549   39  253          -    0.07899      -  94.8   85s
+  4553  1894 infeasible   32               -    0.08072      -  98.3   90s
+  4950  2015    0.09800   36  257          -    0.08191      -   104   97s
+  5011  2060 infeasible   29               -    0.08210      -   105  101s
+  5183  2109 infeasible   35               -    0.08245      -   112  106s
+  5362  2164 infeasible   30               -    0.08307      -   116  110s
+  5587  2247 infeasible   32               -    0.08426      -   119  115s
+  5998  2316    0.09981   35  253          -    0.08474      -   124  120s
+
+Cutting planes:
+  Gomory: 18
+  MIR: 5
+  Flow cover: 5
+
+Explored 6008 nodes (1003308 simplex iterations) in 120.02 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Time limit reached
+Best objective -, best bound 8.473823780416e-02, gap -
+[info | MIPVerify]: Working on index 9
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 6, target labels are [1, 2, 3, 4, 5, 7, 8, 9, 10]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 271, zero_output: 119, linear_in_input: 281, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 153, zero_output: 213, linear_in_input: 292, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 15, zero_output: 9, linear_in_input: 18, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 3
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 4900 rows, 3235 columns and 113810 nonzeros
+Model fingerprint: 0x99441754
+Variable types: 2793 continuous, 442 integer (442 binary)
+Coefficient statistics:
+  Matrix range     [7e-07, 8e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [1e-03, 6e+00]
+  RHS range        [3e-05, 9e+00]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R784 by 0.021080190
+
+Presolve removed 2445 rows and 1395 columns
+Presolve time: 0.17s
+Presolved: 2455 rows, 1840 columns, 109355 nonzeros
+Variable types: 1398 continuous, 442 integer (442 binary)
+
+Root relaxation: objective 0.000000e+00, 941 iterations, 0.04 seconds
+Another try with MIP start
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.00000    0   12          -    0.00000      -     -    0s
+     0     0    0.00000    0  115          -    0.00000      -     -    0s
+     0     0    0.00000    0  116          -    0.00000      -     -    0s
+     0     0    0.01216    0  394          -    0.01216      -     -    1s
+     0     0    0.01797    0  395          -    0.01797      -     -    1s
+     0     0    0.01962    0  388          -    0.01962      -     -    1s
+     0     0    0.02120    0  380          -    0.02120      -     -    1s
+     0     0    0.02152    0  372          -    0.02152      -     -    2s
+     0     0    0.02155    0  374          -    0.02155      -     -    2s
+     0     0    0.02181    0  374          -    0.02181      -     -    2s
+     0     0    0.02182    0  374          -    0.02182      -     -    2s
+     0     0    0.02196    0  369          -    0.02196      -     -    3s
+     0     0    0.02198    0  368          -    0.02198      -     -    3s
+     0     0    0.02206    0  371          -    0.02206      -     -    3s
+H    0     0                       0.1000000    0.02206  77.9%     -    3s
+
+Cutting planes:
+  Gomory: 115
+  Implied bound: 26
+  MIR: 174
+  Flow cover: 53
+  RLT: 47
+  Relax-and-lift: 23
+
+Explored 1 nodes (5397 simplex iterations) in 3.47 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 1: 0.1 
+
+Optimization achieved user objective limit
+Warning: max constraint violation (1.0620e-06) exceeds tolerance
+Best objective 1.000000000000e-01, best bound 2.206401957285e-02, gap 77.9360%
+[info | MIPVerify]: Working on index 10
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 10, target labels are [1, 2, 3, 4, 5, 6, 7, 8, 9]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 273, zero_output: 124, linear_in_input: 274, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 177, zero_output: 165, linear_in_input: 316, constant_output: 0
+[info | MIPVerify]: Applying Linear(1568 -> 100) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (100,). (7 zeroed, 51 as-is, 42 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 15, zero_output: 5, linear_in_input: 22, constant_output: 0
+[info | MIPVerify]: Applying Linear(100 -> 10) ... 
+[info | MIPVerify]: Number of inputs to maximum function possibly taking maximum value: 4
+Gurobi Optimizer version 9.0.1 build v9.0.1rc0 (win64)
+Optimize a model with 5006 rows, 3288 columns and 126060 nonzeros
+Model fingerprint: 0x5351330f
+Variable types: 2819 continuous, 469 integer (469 binary)
+Coefficient statistics:
+  Matrix range     [1e-07, 1e+01]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [8e-04, 6e+00]
+  RHS range        [2e-04, 1e+01]
+
+User MIP start did not produce a new incumbent solution
+User MIP start violates constraint R788 by 0.041393881
+
+Presolve removed 2475 rows and 1397 columns
+Presolve time: 0.16s
+Presolved: 2531 rows, 1891 columns, 121569 nonzeros
+Variable types: 1422 continuous, 469 integer (469 binary)
+
+Root relaxation: objective 1.235838e-02, 1889 iterations, 0.14 seconds
+Another try with MIP start
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0    0.01236    0  312          -    0.01236      -     -    0s
+     0     0    0.02529    0  395          -    0.02529      -     -    1s
+     0     0    0.02806    0  394          -    0.02806      -     -    1s
+     0     0    0.03000    0  391          -    0.03000      -     -    1s
+     0     0    0.03076    0  388          -    0.03076      -     -    2s
+     0     0    0.03261    0  387          -    0.03261      -     -    2s
+     0     0    0.03261    0  387          -    0.03261      -     -    3s
+     0     0    0.03598    0  389          -    0.03598      -     -    3s
+     0     0    0.03598    0  388          -    0.03598      -     -    3s
+     0     0    0.03598    0  393          -    0.03598      -     -    3s
+     0     0    0.03598    0  393          -    0.03598      -     -    3s
+     0     0    0.03598    0  390          -    0.03598      -     -    4s
+     0     0    0.03598    0  392          -    0.03598      -     -    4s
+     0     0    0.03598    0  394          -    0.03598      -     -    4s
+     0     0    0.03598    0  394          -    0.03598      -     -    4s
+     0     0    0.03598    0  390          -    0.03598      -     -    5s
+     0     0    0.03598    0  391          -    0.03598      -     -    5s
+     0     0    0.03598    0  390          -    0.03598      -     -    5s
+     0     0    0.03598    0  390          -    0.03598      -     -    5s
+     0     0    0.03598    0  393          -    0.03598      -     -    5s
+     0     0    0.03598    0  393          -    0.03598      -     -    6s
+     0     2    0.03598    0  393          -    0.03598      -     -   10s
+
+Cutting planes:
+  Gomory: 3
+  Implied bound: 5
+  MIR: 336
+  Flow cover: 50
+  RLT: 32
+  Relax-and-lift: 26
+
+Explored 5 nodes (12294 simplex iterations) in 12.32 seconds
+Thread count was 12 (of 12 available processors)
+
+Solution count 0
+
+Model is infeasible or unbounded
+Best objective -, best bound -, gap -
+testrelu
+Fraction correct: 0.9711
+Verifying 1 through 10
+Academic license - for non-commercial use only
+Academic license - for non-commercial use only
+[info | MIPVerify]: Working on index 8
+[notice | MIPVerify]: Attempting to find adversarial example. Neural net predicted label is 10, target labels are [1, 2, 3, 4, 5, 6, 7, 8, 9]
+[notice | MIPVerify]: Rebuilding model from scratch. This may take some time as we determine upper and lower bounds for the input to each non-linear unit.
+[info | MIPVerify]: Applying Flatten() ... 
+[info | MIPVerify]: Applying Linear(784 -> 3136) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (3136,). (227 zeroed, 2238 as-is, 671 rectified). ... 
+[info | MIPVerify]:   Behavior of ReLUs - split: 318, zero_output: 84, linear_in_input: 269, constant_output: 0
+[info | MIPVerify]: Applying Linear(3136 -> 1568) ... 
+[info | MIPVerify]: Applying MaskedReLU with expected input size (1568,). (9 zeroed, 901 as-is, 658 rectified). ... 
