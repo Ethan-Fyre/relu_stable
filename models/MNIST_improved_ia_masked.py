@@ -14,9 +14,9 @@ class Model(object):
     filters = config["filters"]
     filter_size = config["filter_size"]
 
-    self.x_input = tf.placeholder(tf.float32, shape = [None, 784])
-    self.y_input = tf.placeholder(tf.int64, shape = [None])
-    self.x_input_natural = tf.placeholder(tf.float32, shape = [None, 784])
+    self.x_input = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
+    self.y_input = tf.compat.v1.placeholder(tf.int64, shape = [None])
+    self.x_input_natural = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
     self.x_image = tf.reshape(self.x_input, [-1, 28, 28, 1])
 
     # first convolutional layer
@@ -96,14 +96,14 @@ class Model(object):
     y_xent = tf.nn.sparse_softmax_cross_entropy_with_logits(
         labels=self.y_input, logits=self.pre_softmax)
 
-    self.xent = tf.reduce_mean(y_xent)
+    self.xent = tf.reduce_mean(input_tensor=y_xent)
 
-    self.y_pred = tf.argmax(self.pre_softmax, 1)
+    self.y_pred = tf.argmax(input=self.pre_softmax, axis=1)
 
     correct_prediction = tf.equal(self.y_pred, self.y_input)
 
-    self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
-    self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+    self.num_correct = tf.reduce_sum(input_tensor=tf.cast(correct_prediction, tf.int64))
+    self.accuracy = tf.reduce_mean(input_tensor=tf.cast(correct_prediction, tf.float32))
 
     # Naive IA
     self.lb_1_naive, self.ub_1_naive = self.lb_1, self.ub_1
@@ -132,7 +132,7 @@ class Model(object):
       # prev_W is n x m, W is m x p -> convert to B x n x m
 
       out_dim = W.shape[1].value
-      lb_reshaped = tf.transpose(lb, [1, 0, 2])[0] # This should be B x m now
+      lb_reshaped = tf.transpose(a=lb, perm=[1, 0, 2])[0] # This should be B x m now
       NL_mask_unexpanded = tf.cast(tf.less_equal(lb_reshaped, 0), dtype=tf.float32)
       NL_mask = tf.tile(tf.expand_dims(NL_mask_unexpanded, 2), [1, 1, out_dim]) # This should be B x m x p
       L_mask_unexpanded = 1.0 - NL_mask_unexpanded
@@ -157,7 +157,7 @@ class Model(object):
       out_dim = W.shape[1].value
       out_dim_m1 = W_m1.shape[1].value
 
-      lb_reshaped = tf.transpose(lb, [1, 0, 2])[0] # This should be B x m now
+      lb_reshaped = tf.transpose(a=lb, perm=[1, 0, 2])[0] # This should be B x m now
       NL_mask_unexpanded = tf.cast(tf.less_equal(lb_reshaped, 0), dtype=tf.float32)
       NL_mask = tf.tile(tf.expand_dims(NL_mask_unexpanded, 2), [1, 1, out_dim]) # This should be B x m x p
       L_mask_unexpanded = 1.0 - NL_mask_unexpanded
@@ -167,7 +167,7 @@ class Model(object):
       W_fc_L = tf.multiply(W, L_mask) # Should be B x m x p
 
       # Same thing for m1
-      lb_m1_reshaped = tf.transpose(lb_m1, [1, 0, 2])[0] # This should be B x n now
+      lb_m1_reshaped = tf.transpose(a=lb_m1, perm=[1, 0, 2])[0] # This should be B x n now
       NL_m1_mask_unexpanded = tf.cast(tf.less_equal(lb_m1_reshaped, 0), dtype=tf.float32)
       NL_m1_mask = tf.tile(tf.expand_dims(NL_m1_mask_unexpanded, 2), [1, 1, out_dim_m1]) # This should be B x m x p
       L_m1_mask_unexpanded = 1.0 - NL_m1_mask_unexpanded
@@ -200,9 +200,9 @@ class Model(object):
 
   @staticmethod
   def _weight_variable(shape, sparsity=-1.0):
-      initial = tf.truncated_normal(shape, stddev=0.1)
+      initial = tf.random.truncated_normal(shape, stddev=0.1)
       if sparsity > 0:
-          mask = tf.cast(tf.random_uniform(shape) < sparsity, tf.float32)
+          mask = tf.cast(tf.random.uniform(shape) < sparsity, tf.float32)
           initial *= mask
       return tf.Variable(initial)
 
@@ -214,7 +214,7 @@ class Model(object):
   @staticmethod 
   def _l1(var):
     """L1 weight decay loss."""
-    return  tf.reduce_sum(tf.abs(var))
+    return  tf.reduce_sum(input_tensor=tf.abs(var))
 
   @staticmethod
   def _num_unstable(lb, ub, ops=None):
@@ -225,17 +225,17 @@ class Model(object):
     else:
       is_unstable_relu = is_unstable
     all_but_first_dim = np.arange(len(is_unstable_relu.shape))[1:]
-    result = tf.reduce_sum(is_unstable_relu, all_but_first_dim)
+    result = tf.reduce_sum(input_tensor=is_unstable_relu, axis=all_but_first_dim)
     return result
 
   @staticmethod
   def _l_relu_stable(lb, ub, norm_constant=1.0):
-    loss = -tf.reduce_mean(tf.reduce_sum(tf.tanh(1.0+ norm_constant * lb * ub), axis=-1))
+    loss = -tf.reduce_mean(input_tensor=tf.reduce_sum(input_tensor=tf.tanh(1.0+ norm_constant * lb * ub), axis=-1))
     return loss
 
   @staticmethod
   def _conv2d_2x2_strided(x, W):
-      return tf.nn.conv2d(x, W, strides=[1,2,2,1], padding='SAME')
+      return tf.nn.conv2d(input=x, filters=W, strides=[1,2,2,1], padding='SAME')
 
   def get_anti_relu_layer(self, activations, ops):
     assert (activations.shape[1:] == ops.shape)
@@ -261,5 +261,5 @@ class Model(object):
         raise ValueError("Ops should be -1, 1, or 0, but it is not")
 
     # Transpose is necessary for batch size > 1
-    output = tf.reshape(tf.transpose(flat_output), shape)
+    output = tf.reshape(tf.transpose(a=flat_output), shape)
     return output

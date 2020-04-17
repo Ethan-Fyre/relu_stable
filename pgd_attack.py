@@ -32,14 +32,14 @@ class LinfPGDAttack:
                               on_value=1.0,
                               off_value=0.0,
                               dtype=tf.float32)
-      correct_logit = tf.reduce_sum(label_mask * model.pre_softmax, axis=1)
-      wrong_logit = tf.reduce_max((1-label_mask) * model.pre_softmax, axis=1)
+      correct_logit = tf.reduce_sum(input_tensor=label_mask * model.pre_softmax, axis=1)
+      wrong_logit = tf.reduce_max(input_tensor=(1-label_mask) * model.pre_softmax, axis=1)
       loss = -tf.nn.relu(correct_logit - wrong_logit + 50)
     else:
       print('Unknown loss function. Defaulting to cross-entropy')
       loss = model.xent
 
-    self.grad = tf.gradients(loss, model.x_input)[0]
+    self.grad = tf.gradients(ys=loss, xs=model.x_input)[0]
 
   def perturb(self, x_nat, y, sess, train_frac = 1):
     """Given a set of examples (x_nat, y), returns a set of adversarial

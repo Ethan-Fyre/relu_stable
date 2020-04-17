@@ -20,7 +20,7 @@ import scipy.io as sio
 from pgd_attack import LinfPGDAttack
 import models.MNIST_naive_ia
 import models.MNIST_naive_ia_masked
-
+from tqdm import trange
 '''
 NOTE: This file assumes an architecture involving a 3 layer DNN with
 two 2x2-strided convolutions and a fully connected layers. It also
@@ -293,9 +293,9 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
       print('Third eval - prune relus')
 
       # Get locations of where relus are equal (or close) to 0 or 55000
-      h1_rc = tf.reduce_sum(tf.cast(model.h_1>0, tf.int32), axis = 0)
-      h2_rc = tf.reduce_sum(tf.cast(model.h_2>0, tf.int32), axis = 0)
-      hfc_rc = tf.reduce_sum(tf.cast(model.h_fc_pre_relu>0, tf.int32), axis = 0)
+      h1_rc = tf.reduce_sum(input_tensor=tf.cast(model.h_1>0, tf.int32), axis = 0)
+      h2_rc = tf.reduce_sum(input_tensor=tf.cast(model.h_2>0, tf.int32), axis = 0)
+      hfc_rc = tf.reduce_sum(input_tensor=tf.cast(model.h_fc_pre_relu>0, tf.int32), axis = 0)
 
       # Iterate over the training samples batch-by-batch to do relu count
       num_training_batches = int(math.ceil(num_training_examples / eval_batch_size))
@@ -351,15 +351,15 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
         print("Created masked model")
 
         # Copy variables over from main model
-        new_c1_v = [x for x in tf.global_variables() if x.op.name=='Variable_8'][0]
-        new_c1_b = [x for x in tf.global_variables() if x.op.name=='Variable_9'][0]
-        new_c2_v = [x for x in tf.global_variables() if x.op.name=='Variable_10'][0]
-        new_c2_b = [x for x in tf.global_variables() if x.op.name=='Variable_11'][0]
-        new_fc_v = [x for x in tf.global_variables() if x.op.name=='Variable_12'][0]
-        new_fc_b = [x for x in tf.global_variables() if x.op.name=='Variable_13'][0]
-        new_sm_v = [x for x in tf.global_variables() if x.op.name=='Variable_14'][0]
-        new_sm_b = [x for x in tf.global_variables() if x.op.name=='Variable_15'][0]
-
+        new_c1_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_8'][0]
+        new_c1_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_9'][0]
+        new_c2_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_10'][0]
+        new_c2_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_11'][0]
+        new_fc_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_12'][0]
+        new_fc_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_13'][0]
+        new_sm_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_14'][0]
+        new_sm_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_15'][0]
+        print("Copied vars")
         new_c1_v.assign(c1).eval()
         new_c1_b.assign(c1b).eval()
         new_c2_v.assign(c2).eval()
@@ -368,7 +368,7 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
         new_fc_b.assign(fcb).eval()
         new_sm_v.assign(sm).eval()
         new_sm_b.assign(smb).eval()
-
+        
         # Iterate over the eval samples batch-by-batch
         num_batches = int(math.ceil(num_eval_examples / eval_batch_size))
         total_corr_nat = 0
@@ -376,8 +376,8 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
         tot_unstable1n = 0
         tot_unstable2n = 0
         tot_unstable3n = 0
-
-        for ibatch in range(num_batches):
+        print("Begin eval")
+        for ibatch in trange(num_batches):
           bstart = ibatch * eval_batch_size
           bend = min(bstart + eval_batch_size, num_eval_examples)
 

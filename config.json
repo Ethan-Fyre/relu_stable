@@ -1,24 +1,24 @@
 {
   "_comment": "===== RS LOSS CONFIGURATION =====",
   "w_l1": 2e-5,
-  "w_rsloss": 1e-4,
+  "w_rsloss": 12e-5,
   
   "_comment": "===== MODEL CONFIGURATION =====",
   "model_dir": "trained_models/relu_stable",
-  "estimation_method": "naive_ia",
+  "estimation_method": "improved_ia",
   "filters": [16, 32, 100],
   "filter_size": 5,
   "sparse_init": -1.0,
 
   "_comment": "===== TRAINING CONFIGURATION =====",
   "random_seed": 845234,
-  "max_num_training_steps": 10000,
+  "max_num_training_steps": 100000,
   "num_output_steps": 100,
   "num_summary_steps": 100,
   "num_checkpoint_steps": 500,
   "num_eval_steps": 2000,
   "num_training_examples": 55000,
-  "training_batch_size": 64,
+  "training_batch_size": 32,
   "eval_during_training": true,
   "adversarial_training": true,
 

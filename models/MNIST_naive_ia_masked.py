@@ -14,9 +14,9 @@ class Model(object):
         filters = config["filters"]
         filter_size = config["filter_size"]
 
-        self.x_input = tf.placeholder(tf.float32, shape = [None, 784])
-        self.y_input = tf.placeholder(tf.int64, shape = [None])
-        self.x_input_natural = tf.placeholder(tf.float32, shape = [None, 784])
+        self.x_input = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
+        self.y_input = tf.compat.v1.placeholder(tf.int64, shape = [None])
+        self.x_input_natural = tf.compat.v1.placeholder(tf.float32, shape = [None, 784])
         self.x_input_natural_reshaped = tf.reshape(self.x_input_natural, [-1, 28, 28, 1])
         self.x_image = tf.reshape(self.x_input, [-1, 28, 28, 1])
 
@@ -71,13 +71,13 @@ class Model(object):
             labels=self.y_input, logits=self.pre_softmax)
 
         # xent loss
-        self.xent = tf.reduce_mean(y_xent)
+        self.xent = tf.reduce_mean(input_tensor=y_xent)
 
         # Final prediction
-        self.y_pred = tf.argmax(self.pre_softmax, 1)
+        self.y_pred = tf.argmax(input=self.pre_softmax, axis=1)
         correct_prediction = tf.equal(self.y_pred, self.y_input)
-        self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
-        self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        self.num_correct = tf.reduce_sum(input_tensor=tf.cast(correct_prediction, tf.int64))
+        self.accuracy = tf.reduce_mean(input_tensor=tf.cast(correct_prediction, tf.float32))
 
     # Assumes shapes of Bxm, Bxm, mxn, n
     def _interval_arithmetic(self, lb, ub, W, b):
@@ -96,9 +96,9 @@ class Model(object):
 
     @staticmethod
     def _weight_variable(shape, sparsity=-1.0):
-        initial = tf.truncated_normal(shape, stddev=0.1)
+        initial = tf.random.truncated_normal(shape, stddev=0.1)
         if sparsity > 0:
-            mask = tf.cast(tf.random_uniform(shape) < sparsity, tf.float32)
+            mask = tf.cast(tf.random.uniform(shape) < sparsity, tf.float32)
             initial *= mask
         return tf.Variable(initial)
 
@@ -109,7 +109,7 @@ class Model(object):
 
     @staticmethod
     def _conv2d_2x2_strided(x, W):
-        return tf.nn.conv2d(x, W, strides=[1,2,2,1], padding='SAME')
+        return tf.nn.conv2d(input=x, filters=W, strides=[1,2,2,1], padding='SAME')
 
     """Count number of unstable ReLUs"""
     @staticmethod
@@ -121,7 +121,7 @@ class Model(object):
         else:
             is_unstable_relu = is_unstable
         all_but_first_dim = np.arange(len(is_unstable_relu.shape))[1:]
-        result = tf.reduce_sum(is_unstable_relu, all_but_first_dim)
+        result = tf.reduce_sum(input_tensor=is_unstable_relu, axis=all_but_first_dim)
         return result
 
     def get_anti_relu_layer(self, activations, ops):
@@ -148,5 +148,5 @@ class Model(object):
                 raise ValueError("Ops should be -1, 1, or 0, but it is not")
 
         # Transpose is necessary for batch size > 1
-        output = tf.reshape(tf.transpose(flat_output), shape)
+        output = tf.reshape(tf.transpose(a=flat_output), shape)
         return output

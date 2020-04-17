@@ -80,13 +80,13 @@ class Model(object):
             labels=self.y_input, logits=self.pre_softmax)
 
         # xent loss
-        self.xent = tf.reduce_mean(y_xent)
+        self.xent = tf.reduce_mean(input_tensor=y_xent)
 
         # Final prediction
-        self.y_pred = tf.argmax(self.pre_softmax, 1)
+        self.y_pred = tf.argmax(input=self.pre_softmax, axis=1)
         correct_prediction = tf.equal(self.y_pred, self.y_input)
-        self.num_correct = tf.reduce_sum(tf.cast(correct_prediction, tf.int64))
-        self.accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
+        self.num_correct = tf.reduce_sum(input_tensor=tf.cast(correct_prediction, tf.int64))
+        self.accuracy = tf.reduce_mean(input_tensor=tf.cast(correct_prediction, tf.float32))
 
     # Assumes shapes of Bxm, Bxm, mxn, n
     def _interval_arithmetic(self, lb, ub, W, b):
@@ -107,7 +107,7 @@ class Model(object):
     def _weight_variable(shape, sparsity=-1.0):
         initial = tf.random.truncated_normal(shape, stddev=0.1)
         if sparsity > 0:
-            mask = tf.cast(tf.random_uniform(shape) < sparsity, tf.float32)
+            mask = tf.cast(tf.random.uniform(shape) < sparsity, tf.float32)
             initial *= mask
         return tf.Variable(initial)
 
@@ -118,17 +118,17 @@ class Model(object):
 
     @staticmethod
     def _conv2d_2x2_strided(x, W):
-        return tf.nn.conv2d(x, W, strides=[1,2,2,1], padding='SAME')
+        return tf.nn.conv2d(input=x, filters=W, strides=[1,2,2,1], padding='SAME')
 
     """L1 weight decay loss."""
     @staticmethod 
     def _l1(var):
-        return  tf.reduce_sum(tf.abs(var))
+        return  tf.reduce_sum(input_tensor=tf.abs(var))
 
     """RS Loss"""
     @staticmethod
     def _l_relu_stable(lb, ub, norm_constant=1.0):
-        loss = -tf.reduce_mean(tf.reduce_sum(tf.tanh(1.0+ norm_constant * lb * ub), axis=-1))
+        loss = -tf.reduce_mean(input_tensor=tf.reduce_sum(input_tensor=tf.tanh(1.0+ norm_constant * lb * ub), axis=-1))
         return loss
 
     """Count number of unstable ReLUs"""
@@ -136,6 +136,6 @@ class Model(object):
     def _num_unstable(lb, ub):
         is_unstable = tf.cast(lb * ub < 0.0, tf.int32)
         all_but_first_dim = np.arange(len(is_unstable.shape))[1:]
-        result = tf.reduce_sum(is_unstable, all_but_first_dim)
+        result = tf.reduce_sum(input_tensor=is_unstable, axis=all_but_first_dim)
         return result
 

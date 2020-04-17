@@ -31,8 +31,7 @@ if os.path.exists('job_parameters.json'):
     config.update(param_config)
 
 # Setting up training parameters
-tf.set_random_seed(config['random_seed'])
-print("made1")
+tf.compat.v1.set_random_seed(config['random_seed'])
 # Training parameters
 max_num_training_steps = config['max_num_training_steps']
 num_output_steps = config['num_output_steps']
@@ -52,13 +51,20 @@ eval_batch_size = config['eval_batch_size']
 
 # Output directory
 model_dir = config['model_dir']
-print("made2")
 # Setting up the training data
-mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
-mnist_train = DataSubset(mnist.train.images,
-                         mnist.train.labels,
+#mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
+mnist = tf.keras.datasets.mnist
+
+(train_images, train_labels), (test_images, test_labels) = mnist.load_data()
+
+
+train_images = train_images.reshape(-1, 28 * 28) / 255.0
+test_images = test_images.reshape(-1, 28 * 28) / 255.0
+
+mnist_train = DataSubset(train_images,
+                         train_labels,
                          dataset_size)
-global_step = tf.contrib.framework.get_or_create_global_step()
+global_step = tf.compat.v1.train.get_or_create_global_step()
 
 # Setting up the model
 if config["estimation_method"] == 'improved_ia':
@@ -70,11 +76,10 @@ else:
     model = models.MNIST_naive_ia.Model(config)
 
 # Setting up the optimizer
-train_step = tf.train.AdamOptimizer(1e-4).minimize(model.xent + \
+train_step = tf.compat.v1.train.AdamOptimizer(1e-4).minimize(model.xent + \
                                                     w_l1 * model.l1_loss + \
                                                     w_rsloss * model.rsloss,
                                                     global_step=global_step)
-print("made3")
 # Set up adversary
 attack = LinfPGDAttack(model, 
                        config['epsilon'],
@@ -91,7 +96,6 @@ eval_attack = LinfPGDAttack(model,
                        config['eval_epsilon']/10.0,
                        config['random_start'],
                        config['loss_func'])
-print("made4")
 # Setting up the Tensorboard and checkpoint outputs
 if not os.path.exists(model_dir):
     os.makedirs(model_dir)
@@ -100,41 +104,40 @@ if eval_during_training and not os.path.exists(eval_dir):
     os.makedirs(eval_dir)
 
 # Keep track of accuracies in Tensorboard
-saver = tf.train.Saver(max_to_keep=3)
-tf.summary.scalar('accuracy_adv_train', model.accuracy, collections = ['adv'])
-tf.summary.scalar('accuracy_adv', model.accuracy, collections = ['adv'])
-tf.summary.scalar('xent_adv_train', model.xent, collections = ['adv'])
-tf.summary.scalar('xent_adv', model.xent, collections = ['adv'])
-adv_summaries = tf.summary.merge_all('adv')
+saver = tf.compat.v1.train.Saver(max_to_keep=3)
+tf.compat.v1.summary.scalar('accuracy_adv_train', model.accuracy, collections = ['adv'])
+tf.compat.v1.summary.scalar('accuracy_adv', model.accuracy, collections = ['adv'])
+tf.compat.v1.summary.scalar('xent_adv_train', model.xent, collections = ['adv'])
+tf.compat.v1.summary.scalar('xent_adv', model.xent, collections = ['adv'])
+adv_summaries = tf.compat.v1.summary.merge_all('adv')
 
-tf.summary.scalar('accuracy_nat_train', model.accuracy, collections = ['nat'])
-tf.summary.scalar('accuracy_nat', model.accuracy, collections = ['nat'])
-tf.summary.scalar('xent_nat_train', model.xent, collections = ['nat'])
-tf.summary.scalar('xent_nat', model.xent, collections = ['nat'])
-nat_summaries = tf.summary.merge_all('nat')
+tf.compat.v1.summary.scalar('accuracy_nat_train', model.accuracy, collections = ['nat'])
+tf.compat.v1.summary.scalar('accuracy_nat', model.accuracy, collections = ['nat'])
+tf.compat.v1.summary.scalar('xent_nat_train', model.xent, collections = ['nat'])
+tf.compat.v1.summary.scalar('xent_nat', model.xent, collections = ['nat'])
+nat_summaries = tf.compat.v1.summary.merge_all('nat')
 
 # Keep track of number of unstable relus and the RS Loss
-tf.summary.scalar('avg_un1', model.unstable1, collections = ['unstable'])
-tf.summary.scalar('avg_un2', model.unstable2, collections = ['unstable'])
-tf.summary.scalar('avg_un3', model.unstable3, collections = ['unstable'])
-tf.summary.scalar('avg_un1l', model.un1loss, collections = ['unstable'])
-tf.summary.scalar('avg_un2l', model.un2loss, collections = ['unstable'])
-tf.summary.scalar('avg_un3l', model.un3loss, collections = ['unstable'])
-unstable_summaries = tf.summary.merge_all('unstable')
-print("made5")
+tf.compat.v1.summary.scalar('avg_un1', model.unstable1, collections = ['unstable'])
+tf.compat.v1.summary.scalar('avg_un2', model.unstable2, collections = ['unstable'])
+tf.compat.v1.summary.scalar('avg_un3', model.unstable3, collections = ['unstable'])
+tf.compat.v1.summary.scalar('avg_un1l', model.un1loss, collections = ['unstable'])
+tf.compat.v1.summary.scalar('avg_un2l', model.un2loss, collections = ['unstable'])
+tf.compat.v1.summary.scalar('avg_un3l', model.un3loss, collections = ['unstable'])
+unstable_summaries = tf.compat.v1.summary.merge_all('unstable')
 shutil.copy('config.json', model_dir)
 
-config = tf.ConfigProto()
+config = tf.compat.v1.ConfigProto()
 config.gpu_options.allow_growth = True
 
-with tf.Session(config=config) as sess:
+with tf.compat.v1.Session(config=config) as sess:
     # Initialize the summary writer, global variables, and our time counter.
-    summary_writer = tf.summary.FileWriter(model_dir, sess.graph)
+    summary_writer = tf.compat.v1.summary.FileWriter(model_dir, sess.graph)
     if eval_during_training:
-        summary_writer_eval = tf.summary.FileWriter(eval_dir)
-    sess.run(tf.global_variables_initializer())
+        summary_writer_eval = tf.compat.v1.summary.FileWriter(eval_dir)
+    sess.run(tf.compat.v1.global_variables_initializer())
     training_time = 0.0
-    print("abouttostart")
+    
     # Main training loop
     for ii in range(max_num_training_steps + 1):
         x_batch, y_batch = mnist_train.get_next_batch(batch_size,
@@ -200,8 +203,8 @@ with tf.Session(config=config) as sess:
                 bstart = ibatch * eval_batch_size
                 bend = min(bstart + eval_batch_size, num_eval_examples)
 
-                x_batch_eval = mnist.test.images[bstart:bend, :]
-                y_batch_eval = mnist.test.labels[bstart:bend]
+                x_batch_eval = test_images[bstart:bend, :]
+                y_batch_eval = test_labels[bstart:bend]
 
                 dict_nat_eval = {model.x_input: x_batch_eval,
                                model.x_input_natural: x_batch_eval,
@@ -251,21 +254,21 @@ with tf.Session(config=config) as sess:
             acc_nat = total_corr_nat / num_eval_examples
             acc_adv = total_corr_adv / num_eval_examples
 
-            summary = tf.Summary(value=[
-                  tf.Summary.Value(tag='xent_adv_eval', simple_value= avg_xent_adv),
-                  tf.Summary.Value(tag='xent_adv', simple_value= avg_xent_adv),
-                  tf.Summary.Value(tag='xent_nat_eval', simple_value= avg_xent_nat),
-                  tf.Summary.Value(tag='xent_nat', simple_value= avg_xent_nat),
-                  tf.Summary.Value(tag='accuracy_adv_eval', simple_value= acc_adv),
-                  tf.Summary.Value(tag='accuracy_adv', simple_value= acc_adv),
-                  tf.Summary.Value(tag='accuracy_nat_eval', simple_value= acc_nat),
-                  tf.Summary.Value(tag='accuracy_nat', simple_value= acc_nat),
-                  tf.Summary.Value(tag='avg_un1l', simple_value= avg_un1l),
-                  tf.Summary.Value(tag='avg_un2l', simple_value= avg_un2l),
-                  tf.Summary.Value(tag='avg_un3l', simple_value= avg_un3l),
-                  tf.Summary.Value(tag='avg_un1', simple_value= avg_un1),
-                  tf.Summary.Value(tag='avg_un2', simple_value= avg_un2),
-                  tf.Summary.Value(tag='avg_un3', simple_value= avg_un3)])
+            summary = tf.compat.v1.Summary(value=[
+                  tf.compat.v1.Summary.Value(tag='xent_adv_eval', simple_value= avg_xent_adv),
+                  tf.compat.v1.Summary.Value(tag='xent_adv', simple_value= avg_xent_adv),
+                  tf.compat.v1.Summary.Value(tag='xent_nat_eval', simple_value= avg_xent_nat),
+                  tf.compat.v1.Summary.Value(tag='xent_nat', simple_value= avg_xent_nat),
+                  tf.compat.v1.Summary.Value(tag='accuracy_adv_eval', simple_value= acc_adv),
+                  tf.compat.v1.Summary.Value(tag='accuracy_adv', simple_value= acc_adv),
+                  tf.compat.v1.Summary.Value(tag='accuracy_nat_eval', simple_value= acc_nat),
+                  tf.compat.v1.Summary.Value(tag='accuracy_nat', simple_value= acc_nat),
+                  tf.compat.v1.Summary.Value(tag='avg_un1l', simple_value= avg_un1l),
+                  tf.compat.v1.Summary.Value(tag='avg_un2l', simple_value= avg_un2l),
+                  tf.compat.v1.Summary.Value(tag='avg_un3l', simple_value= avg_un3l),
+                  tf.compat.v1.Summary.Value(tag='avg_un1', simple_value= avg_un1),
+                  tf.compat.v1.Summary.Value(tag='avg_un2', simple_value= avg_un2),
+                  tf.compat.v1.Summary.Value(tag='avg_un3', simple_value= avg_un3)])
             summary_writer_eval.add_summary(summary, global_step.eval(sess))
 
             print('Eval at {}:'.format(ii))
