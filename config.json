@@ -5,7 +5,7 @@
   
   "_comment": "===== MODEL CONFIGURATION =====",
   "model_dir": "trained_models/relu_stable",
-  "estimation_method": "improved_ia",
+  "estimation_method": "naive_ia",
   "filters": [16, 32, 100],
   "filter_size": 5,
   "sparse_init": -1.0,
@@ -18,13 +18,13 @@
   "num_checkpoint_steps": 500,
   "num_eval_steps": 2000,
   "num_training_examples": 55000,
-  "training_batch_size": 32,
+  "training_batch_size": 64,
   "eval_during_training": true,
   "adversarial_training": true,
 
   "_comment": "===== EVAL CONFIGURATION =====",
   "num_eval_examples": 10000,
-  "eval_batch_size": 200,
+  "eval_batch_size": 64,
   "eval_on_cpu": true,
 
   "_comment": "=====ADVERSARIAL EXAMPLES CONFIGURATION=====",

@@ -5,10 +5,9 @@ https://www.tensorflow.org/get_started/mnist/pros
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
-
 import tensorflow as tf
 import numpy as np
-
+tf.compat.v1.disable_eager_execution()
 class Model(object):
     def __init__(self, config):
         filters = config["filters"]
@@ -122,7 +121,7 @@ class Model(object):
         b_prev = biases[1]
 
         # Compute W_A and W_NA
-        out_dim = W.shape[-1].value
+        out_dim = W.shape[-1]
         active_mask_unexpanded = tf.cast(tf.greater(lb, 0), dtype=tf.float32)
         active_mask = tf.tile(tf.expand_dims(active_mask_unexpanded, 2), [1, 1, out_dim]) # This should be B x y x p
         nonactive_mask = 1.0 - active_mask

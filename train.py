@@ -20,7 +20,7 @@ from datasubset import DataSubset
 import models.MNIST_improved_ia
 import models.MNIST_naive_ia
 from pgd_attack import LinfPGDAttack
-
+tf.compat.v1.disable_eager_execution()
 with open('config.json') as config_file:
     config = json.load(config_file)
 if os.path.exists('job_parameters.json'):

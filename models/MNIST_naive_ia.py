@@ -8,7 +8,7 @@ from __future__ import print_function
 
 import tensorflow as tf
 import numpy as np
-
+tf.compat.v1.disable_eager_execution()
 class Model(object):
     def __init__(self, config):
         filters = config["filters"]

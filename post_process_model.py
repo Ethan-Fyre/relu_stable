@@ -53,7 +53,7 @@ relu_prune_frac = float(args.relu_prune_frac)
 weight_thresh = float(args.weight_thresh)
 if not os.path.isdir(model_dir):
   raise ValueError('The model directory was not found')
-
+tf.compat.v1.disable_eager_execution()
 # Set up the data, hyperparameters, and the model
 #mnist = input_data.read_data_sets('MNIST_data', one_hot=False)
 mnist = tf.keras.datasets.mnist
@@ -72,6 +72,7 @@ num_eval_examples = config['num_eval_examples']
 eval_batch_size = config['eval_batch_size']
 
 model = models.MNIST_naive_ia.Model(config)
+print("first?")
 attack = LinfPGDAttack(model, 
                        config['epsilon'],
                        config['k'],
@@ -154,13 +155,12 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
     saver.restore(sess, filename)
     print('restored checkpoint for {}'.format(filename))
     print('First eval - no changes')
-
+    
     x_single_train = train_images[0:1, :]
     y_single_train = train_labels[0:1]
     dict_nat_single = { model.x_input: x_single_train,
                         model.x_input_natural: x_single_train,
                         model.y_input: y_single_train}
-
     # Get the variables
     c1_v = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable'][0]
     c1_b = [x for x in tf.compat.v1.global_variables() if x.op.name=='Variable_1'][0]
@@ -438,6 +438,7 @@ def evaluate_checkpoint(filename, weight_prune, tolerance, relu_prune, relu_prun
 
 print("Processing model from {}".format(model_dir))
 cur_checkpoint = tf.train.latest_checkpoint(model_dir)
+print("Second?")
 new_model = evaluate_checkpoint(cur_checkpoint, weight_prune, weight_thresh,
                                                 relu_prune, relu_prune_frac)
 
