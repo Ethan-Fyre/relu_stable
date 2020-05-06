@@ -146,6 +146,7 @@ def prune_small_weights(tf_vars, sess, tolerance):
     weights[np.where(abs(weights) < tolerance)] = 0
     print("remaining nonzero weights: {}".format(len(np.where(abs(weights) != 0)[0])))
     print("remaining weights proportion: {}".format(len(np.where(abs(weights) != 0)[0])/len(weights.flatten())))
+    weights = np.around(weights, 1)
     tf_var.assign(weights).eval()
 
 # A function for evaluating a single checkpoint
